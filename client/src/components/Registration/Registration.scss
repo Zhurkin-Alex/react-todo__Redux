@@ -1,0 +1,15 @@
+.home{
+  min-width: 100%;
+  min-height: 100vh;
+  background: url('../../img/todo.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  .home-box__form{
+    display: flex;
+    justify-content: start;
+    align-items:center;
+    padding-top: 10%;
+  }
+  .home-form{
+    max-width: 40%;
+  }
+}
