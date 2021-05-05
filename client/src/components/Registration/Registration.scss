@@ -13,3 +13,16 @@
     max-width: 40%;
   }
 }
+.registration-auth{
+  display: flex;
+  justify-content: space-between;
+  
+  .registration-check{
+    padding-bottom: 15px;
+  }
+  .registration-check__password{
+    max-width: 150px;
+   
+  }
+}
+

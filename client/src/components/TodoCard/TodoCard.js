@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import todoContext from '../../utils/todoContext/todoContext'
+// import todoContext from '../../utils/todoContext/todoContext'
 import TodoItem from '../TodoItem/TodoItem'
 import './TodoCard.scss'
 import {useDispatch, useSelector} from 'react-redux'
