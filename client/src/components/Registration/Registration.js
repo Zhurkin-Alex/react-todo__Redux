@@ -1,7 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, } from "react";
 import "./Registration.scss";
+import {setUser } from '../../redux/actionCreators'
+import { useDispatch, useSelector } from "react-redux";
+import {useHistory } from 'react-router'
 
 function Home(props) {
+const dispatch = useDispatch()
+const store = useSelector(store=>store)
+const histori = useHistory()
   const [admin, setAdmin] = useState(false);
   const adminHandler = () => {
     setAdmin(!admin);
@@ -11,11 +17,13 @@ function Home(props) {
   const pasword = useRef()
   const paswordcheck = useRef()
 
-  const registrHandler = (e) => {
+  
+  const registrHandler = async (e) => {
     e.preventDefault();
+    const form = e.target
     // console.log(name.current.value);
     // const name = name.current.value
-    fetch(`${process.env.REACT_APP_AUTH}/registration`, {
+    const response = await fetch(`${process.env.REACT_APP_AUTH}/registration`, {
       method: "POST",
       headers: {
         "Content-type": "Application/json",
@@ -24,12 +32,23 @@ function Home(props) {
         name:name.current.value,
         email:email.current.value,
         password:pasword.current.value, 
-        paswordcheck:paswordcheck.current.value       
+        paswordcheck:paswordcheck?.current?.value       
       }),
     })
-    .then(res=>res.json())
-    .then(data=>console.log(data))
+    const rezult = await response.json()
+    console.log(rezult);
+    dispatch(setUser(rezult.User))
+    localStorage.setItem('token',rezult.token)
+    
+    
+
+
+
+    // for history
+    // histori.push('/todo')
+    form.reset()
   };
+ 
 
   return (
     <section className="home">

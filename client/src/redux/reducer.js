@@ -1,6 +1,30 @@
-const initialState = {list:[]}
-const reducer = (state=initialState, action) => {
+import { SET_USER, LOG_OUT } from "./actionType";
+
+
+const initialState = {
+  list: [],
+  currentUser: {},
+  isAuth: false,
+};
+
+const reducer = (state = initialState, action) => {
+
   switch (action.type) {
+    case SET_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+        isAuth: true,
+      };
+    case LOG_OUT:
+      localStorage.removeItem('token')
+      // histori.push('/login')
+      return {
+        ...state,
+        currentUser: {},
+        isAuth: false,
+         
+      };
     case "ADDONE":
       return {
         ...state,
@@ -31,17 +55,15 @@ const reducer = (state=initialState, action) => {
     case "DELETE":
       // console.log(action.payload);
       return {
-       ...state,
-       list:
-       state.list.filter(el=>{
-         return el._id !== action.payload 
-       })
-      };  
+        ...state,
+        list: state.list.filter((el) => {
+          return el._id !== action.payload;
+        }),
+      };
 
     default:
       break;
   }
 };
-
 
 export default reducer;
