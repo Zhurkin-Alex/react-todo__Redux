@@ -18,7 +18,7 @@ function App() {
   const histori = useHistory()
   const dispatch = useDispatch()
   
-  console.log(localStorage.getItem('token'))
+  // console.log(localStorage.getItem('token'))
   ;
 
   useEffect(async()=>{

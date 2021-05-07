@@ -11,6 +11,7 @@ function NavBar(props) {
   const isAuth = store?.isAuth;
   const histori = useHistory()
   // ()=> dispatch(logOut())
+  
   const loguotHandler =()=>{
     dispatch(logOut())
     histori.push('/auth')

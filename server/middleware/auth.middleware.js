@@ -16,10 +16,10 @@ module.exports = (req,res,next) =>{
     }
    
     const decoded = jwt.verify(token, process.env.SECRETCONFIG)
-    console.log("decoded-----------",decoded);
+    // console.log("decoded-----------",decoded);
     req.User= decoded
-    console.log(req.user);
-    console.log('zhopa');
+    // console.log(req.user);
+    // console.log('zhopa');
     next()
   } catch (e) {
     return res.status(405).json({message:"Auth error!"})

@@ -97,7 +97,7 @@ router.post("/registration", [
 router.get("/auth",authMiddleware, async (req, res) => {
   try {
     const user = await UserOne.findOne({_id:req.User.id})
-    console.log('проверка',user);
+    // console.log('проверка',user);
     const token = jwt.sign({id:user.id}, process.env.SECRETCONFIG,{expiresIn:"2h"})
     return res.json({
       token,

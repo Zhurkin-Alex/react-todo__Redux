@@ -8,7 +8,7 @@ function Todo(props) {
 
   const dispatch = useDispatch()
   const store = useSelector(store=>store)
-
+  const userEmail = store.currentUser?.email
 
   const formhandler = (e) => {
     e.preventDefault();
@@ -22,10 +22,13 @@ function Todo(props) {
         "Content-type": "Application/json", 
       },
       body: JSON.stringify({
-        todoName,todoTextarea
+        todoName,
+        todoTextarea,
+         userEmail
       })
     })
     .then(res=>res.json())
+    // .then(data=>console.log(data.newTodo))
     .then(data=>dispatch({type:"ADDONE", payload:data.newTodo}))
   };
 

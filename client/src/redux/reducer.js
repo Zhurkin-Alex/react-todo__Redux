@@ -28,7 +28,7 @@ const reducer = (state = initialState, action) => {
     case "ADDONE":
       return {
         ...state,
-        list: [...state.list, action.payload],
+        list:[ ...state?.list, action.payload],
       };
     case "ADDALL":
       return {

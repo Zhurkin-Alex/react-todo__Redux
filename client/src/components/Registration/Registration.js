@@ -45,7 +45,7 @@ const histori = useHistory()
 
 
     // for history
-    // histori.push('/todo')
+    histori.push('/todo')
     form.reset()
   };
  

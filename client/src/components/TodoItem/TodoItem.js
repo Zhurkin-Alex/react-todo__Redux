@@ -8,7 +8,8 @@ function TodoItem({ todo }) {
   
   const dispatch = useDispatch()
   const store = useSelector(store=>store)
-  
+  const userEmail = store.currentUser?.email
+  // console.log("todo",todo);
   const todoItemCheck = () => {
     todoItemCheck &&
       fetch(`${process.env.REACT_APP_TODO}/checkbox`, {
@@ -66,7 +67,8 @@ function TodoItem({ todo }) {
         "Content-type": "Application/json",
       },
       body: JSON.stringify({
-        id:todo._id
+        id:todo._id,
+        userEmail
         
       }),
     })
@@ -79,14 +81,14 @@ function TodoItem({ todo }) {
   return (
     <>
       {/* check:true,  изменять нельзя, отрисовка готовой */}
-      {todo.todoadd && (
+      {todo && todo?.todoadd && (
         <div className="todo-item__page done">
           <div>
             <div className="todo-item__box done-box">
               <div className="todo-item__text">
                 <input onClick={todoItemCheck} type="checkbox" defaultChecked />
-                <div className="todo-item__name">{todo.todoName}</div>
-                <div className="todo-item__textarea">{todo.todoTextarea}</div>
+                <div className="todo-item__name">{todo?.todoName}</div>
+                <div className="todo-item__textarea">{todo?.todoTextarea}</div>
               </div>
               <div className="todo-item__btn">
                 <button
@@ -102,14 +104,14 @@ function TodoItem({ todo }) {
         </div>
       )}
       {/* check:false, можно менять, update не нажато*/}
-      {!todo.todoadd && !update && (
+      {!todo?.todoadd && !update && (
         <div className="todo-item__page">
           <div>
             <div className="todo-item__box">
               <div className="todo-item__text">
                 <input onClick={todoItemCheck} type="checkbox" />
-                <div className="todo-item__name">{todo.todoName}</div>
-                <div className="todo-item__textarea">{todo.todoTextarea}</div>
+                <div className="todo-item__name">{todo?.todoName}</div>
+                <div className="todo-item__textarea">{todo?.todoTextarea}</div>
               </div>
               <div className="todo-item__btn">
                 <button

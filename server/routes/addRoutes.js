@@ -2,19 +2,28 @@ const express = require('express')
 const router = express.Router()
 const Todo = require('../models/todo')
 
-
+const User = require('../models/user')
 
 
 
 
 router.post('/addTodo', async(req,res)=>{
-  const {todoName,todoTextarea} = req.body
+  const {todoName,todoTextarea,userEmail} = req.body
+  // console.log(userEmail);
   try {
     if(todoName,todoTextarea){
+      const UserIn = await User.findOne({email:userEmail})
+
       const newTodo = await Todo.create({
-        todoName,todoTextarea
+        todoName,todoTextarea,
+        user:UserIn._id
       })
-      res.status(200).json({sucses:true, newTodo})
+      // console.log("UserIn",UserIn);
+      UserIn.todo.push(newTodo)
+      await UserIn.save()
+
+
+      res.status(200).json({sucses:true, newTodo, UserIn})
 
     }
   } catch (error) {
@@ -23,9 +32,12 @@ router.post('/addTodo', async(req,res)=>{
   }
 
 })
-router.get('/findAll', async(req,res)=>{
+router.post('/findAll', async(req,res)=>{
+  console.log(">>>>>++++++findall");
+  const{userEmail} = req.body
   try {
-    const allTodo = await Todo.find()
+    const UserIn =await User.findOne({email:userEmail}).populate('todo')
+    const allTodo = UserIn.todo
     res.status(200).json( {allTodo})
 
   } catch (error) {
@@ -63,8 +75,14 @@ router.put('/updateTodo', async(req,res)=>{
 })
 
 router.delete('/delete', async (req,res)=>{
-  const{id}= req.body
+  const{id,userEmail}= req.body
   try {
+    const UserTodo =await User.findOne({email:userEmail})
+    console.log("todo",id,UserTodo);
+    
+    UserTodo.todo = UserTodo.todo.filter(el=> {return el != id})
+    await UserTodo.save()
+    
   await Todo.findByIdAndDelete(id)
     res.status(200).json({sucsess:true, id})
   } catch (error) {

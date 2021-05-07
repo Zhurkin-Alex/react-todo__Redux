@@ -6,13 +6,23 @@ import {useDispatch, useSelector} from 'react-redux'
 
 
 function TodoCard(props) {
-
   const dispatch = useDispatch()
   const store = useSelector(store=>store)
-
+  const userEmail = store.currentUser?.email
+  // console.log(userEmail);
+  // console.log("store.list>>>>>>>",store.list);
   useEffect(()=>{
-    fetch(`${process.env.REACT_APP_TODO}/findAll`)
+    fetch(`${process.env.REACT_APP_TODO}/findAll`,{
+      method:"POST",
+      headers:{
+        "Content-type": "Application/json", 
+      },
+      body: JSON.stringify({
+         userEmail
+      })
+    })
     .then(res=>res.json())
+    // .then(data=>console.log(data.allTodo))
     .then(data=> dispatch({type:"ADDALL", payload:data.allTodo}))
   },[])
 
@@ -21,7 +31,7 @@ function TodoCard(props) {
   return (
     <div className="todoCard-box">
       {
-        store && store.list.map(el=> <TodoItem key={el._id} todo={el}/>)
+        store.list && store.list.map(el=> <TodoItem key={el?._id} todo={el}/>)
       }
     </div>
   );
