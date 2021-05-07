@@ -1,30 +1,30 @@
-import { SET_USER, LOG_OUT } from "./actionType";
+// import { SET_USER, LOG_OUT } from "../actionType";
 
 
 const initialState = {
   list: [],
-  currentUser: {},
-  isAuth: false,
+  // currentUser: {},
+  // isAuth: false,
 };
 
-const reducer = (state = initialState, action) => {
+const todoReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case SET_USER:
-      return {
-        ...state,
-        currentUser: action.payload,
-        isAuth: true,
-      };
-    case LOG_OUT:
-      localStorage.removeItem('token')
-      // histori.push('/login')
-      return {
-        ...state,
-        currentUser: {},
-        isAuth: false,
+    // case SET_USER:
+    //   return {
+    //     ...state,
+    //     currentUser: action.payload,
+    //     isAuth: true,
+    //   };
+    // case LOG_OUT:
+    //   localStorage.removeItem('token')
+    //   // histori.push('/login')
+    //   return {
+    //     ...state,
+    //     currentUser: {},
+    //     isAuth: false,
          
-      };
+    //   };
     case "ADDONE":
       return {
         ...state,
@@ -62,8 +62,8 @@ const reducer = (state = initialState, action) => {
       };
 
     default:
-      break;
+      return state;
   }
 };
 
-export default reducer;
+export default todoReducer;

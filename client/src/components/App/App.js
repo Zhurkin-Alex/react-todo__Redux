@@ -9,12 +9,14 @@ import { useEffect } from "react";
 import {setUser,logOut } from '../../redux/actionCreators'
 // import store from '../../redux/store'
 import {useHistory } from 'react-router'
+
+
 function App() {
   // const [state, dispatch] = useReducer(reducer, { list: [] });
   // const isAutn = useSelector(store=>store.state.User.isAutn)
   const store = useSelector(store=>store)
-  const isAuth = store?.isAuth
-  // console.log(isAuth.token);
+  const isAuth = store.userReducer?.isAuth
+  // console.log(isAuth);
   const histori = useHistory()
   const dispatch = useDispatch()
   
@@ -28,6 +30,7 @@ function App() {
         headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}
       })
       const rezult = await response.json()
+      // console.log("store-",store,'rezult.success',rezult.success, "isAuth-", isAuth , "rezult.user-",rezult.user);
       rezult.success ? dispatch(setUser(rezult.user)):
       localStorage.removeItem('token')
       localStorage.setItem('token',rezult.token)

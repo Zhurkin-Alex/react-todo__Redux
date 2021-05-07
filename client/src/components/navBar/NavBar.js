@@ -8,7 +8,8 @@ import {useHistory } from 'react-router'
 function NavBar(props) {
   const dispatch = useDispatch();
   const store = useSelector((store) => store);
-  const isAuth = store?.isAuth;
+  // console.log("store", store);
+  const isAuth = store.userReducer?.isAuth;
   const histori = useHistory()
   // ()=> dispatch(logOut())
   

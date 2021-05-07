@@ -8,9 +8,10 @@ function Todo(props) {
 
   const dispatch = useDispatch()
   const store = useSelector(store=>store)
-  const userEmail = store.currentUser?.email
+  const userEmail = store.userReducer.currentUser?.email
 
   const formhandler = (e) => {
+    const form = e.target
     e.preventDefault();
     const{
       todoName:{value:todoName},
@@ -30,6 +31,7 @@ function Todo(props) {
     .then(res=>res.json())
     // .then(data=>console.log(data.newTodo))
     .then(data=>dispatch({type:"ADDONE", payload:data.newTodo}))
+    form.reset()
   };
 
 
@@ -39,21 +41,21 @@ function Todo(props) {
         <div className="Todo-box">
           <form className="form" onSubmit={formhandler}>
             <div className="form-input">
-              <input className="form-control" name="todoName" type="text" placeholder="todo" />
+              <input className="form-control" name="todoName" type="text" placeholder="todo-required" />
               <div className="form-textarea">
                 <textarea
-                
+
                   className="form-control form-textarea"
                   type="text"
                   name="todoTextarea"
-                  placeholder="about"
+                  placeholder="about - required"
                   rows="3"
                 />
               </div>
             </div>
 
             <button type="submit" className="btn btn-primary todo-btn">
-              Submit
+              Добавить
             </button>
           </form>
           <div className="todo-card">

@@ -33,7 +33,7 @@ router.post('/addTodo', async(req,res)=>{
 
 })
 router.post('/findAll', async(req,res)=>{
-  console.log(">>>>>++++++findall");
+  // console.log(">>>>>++++++findall");
   const{userEmail} = req.body
   try {
     const UserIn =await User.findOne({email:userEmail}).populate('todo')

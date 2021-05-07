@@ -8,9 +8,9 @@ import {useDispatch, useSelector} from 'react-redux'
 function TodoCard(props) {
   const dispatch = useDispatch()
   const store = useSelector(store=>store)
-  const userEmail = store.currentUser?.email
-  // console.log(userEmail);
-  // console.log("store.list>>>>>>>",store.list);
+  const userEmail = store.userReducer.currentUser?.email
+  // console.log("findAll",userEmail);
+  // console.log("store.list>>>>>>>",store.reducer.list);
   useEffect(()=>{
     fetch(`${process.env.REACT_APP_TODO}/findAll`,{
       method:"POST",
@@ -31,7 +31,7 @@ function TodoCard(props) {
   return (
     <div className="todoCard-box">
       {
-        store.list && store.list.map(el=> <TodoItem key={el?._id} todo={el}/>)
+        store.todoReducer?.list && store.todoReducer?.list.map(el=> <TodoItem key={el?._id} todo={el}/>)
       }
     </div>
   );

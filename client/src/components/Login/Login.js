@@ -30,7 +30,7 @@ function Login(props) {
       }),
     })
     const rezult = await response.json()
-    console.log(rezult);
+    // console.log(rezult);
     dispatch(setUser(rezult.User))
     localStorage.setItem('token',rezult.token)
     histori.push('/todo')

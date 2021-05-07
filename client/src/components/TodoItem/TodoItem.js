@@ -6,10 +6,10 @@ import { checkAC,updateAC,deleteAC} from '../../redux/actionCreators'
 
 function TodoItem({ todo }) {
   
+  // console.log("todo",todo);
   const dispatch = useDispatch()
   const store = useSelector(store=>store)
-  const userEmail = store.currentUser?.email
-  // console.log("todo",todo);
+  const userEmail = store.userReducer.currentUser?.email
   const todoItemCheck = () => {
     todoItemCheck &&
       fetch(`${process.env.REACT_APP_TODO}/checkbox`, {
@@ -60,7 +60,7 @@ function TodoItem({ todo }) {
 
   // delete card todo
   const deleteHandler = ()=>{
-    console.log("delete");
+    // console.log("delete");
     fetch(`${process.env.REACT_APP_TODO}/delete`, {
       method: "DELETE",
       headers: {
